@@ -1,8 +1,10 @@
-package com.entornos.proyecto;
+package com.entornos.proyecto.controllers;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Map;
+
+import com.entornos.proyecto.services.FotoService;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,5 +41,25 @@ public class HolaMundo {
        return MessageFormat.format("Qué tal estás {0} {1}", params);
    }
 
+   @PostMapping("/guardar")
+   public String Guardar( @RequestParam Map<String, String> body) {
+        // Normalmente aquí guardamos algo en el sistema
+        return "Datos enviados: " + body.get("nombre") + " y la edad: " + body.get("edad");
+   }
+
+   @DeleteMapping("/borrar/{id}")
+   public String borrar (@PathVariable String id){
+	// Aquí normalmente borramos algo en el sistema
+       return null;
+   }
+
+   @Autowired
+    FotoService fotoService;
+
+    @GetMapping("/damefoto")
+   public String dameFoto(){
+       String foto = fotoService.getFoto();
+       return "<img src='"+foto+"'/>";
+   }
 
 }
